@@ -1,548 +1,471 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="إشارات يومية وتحليل محترف للذهب والعملات والأسهم — انضم لقناة التلجرام مجانًا" />
-<title>الإشارات الذهبية | قرارات مبنية على تحليل</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Lalezar&display=swap" rel="stylesheet" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="ليك لو بتدور على شغل أو دخل إضافي — كل اللي محتاجه موبايل ونت وساعتين في اليوم. التفاصيل جوه القناة، مجانًا."/>
+<meta property="og:title" content="بتدور على شغل؟ شوف الفرصة دي"/>
+<meta property="og:description" content="بدون خبرة وبدون ما تخرج من بيتك — التفاصيل جوه القناة، مجانًا."/>
+<title>بتدور على شغل؟ | شوف الفرصة دي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Changa:wght@600;700;800&display=swap" rel="stylesheet"/>
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
   :root{
-    --bg:#0B0B0C;
-    --gold:#E3B84C;
-    --gold-soft:#F0CD7E;
-    --ink:#F4EFE3;
-    --muted:#A69F8E;
-    --up:#37C57F;
-    --down:#E05C5C;
+    --bg:#0B0A08;
+    --gold:#E4B44F;
+    --gold-soft:#F1D28A;
+    --ink:#F5F0E4;
+    --muted:#A79E8C;
+    --live:#37C57F;
   }
   body{
-    background:var(--bg);
-    color:var(--ink);
+    background:var(--bg);color:var(--ink);
     font-family:'Almarai',sans-serif;
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
   }
 
-  /* ===== خلفية الشارت + طبقة تظليل للقراءة ===== */
-  #market{position:fixed;inset:0;width:100%;height:100%;display:block}
+  /* ====== طبقات الخلفية ====== */
+  #fx{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0}
   .scrim{
-    position:fixed;inset:0;pointer-events:none;z-index:1;
-    background:radial-gradient(120% 95% at 50% 40%, rgba(11,11,12,.30) 0%, rgba(11,11,12,.66) 62%, rgba(11,11,12,.94) 100%);
+    position:fixed;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(120% 95% at 50% 42%, rgba(11,10,8,.22) 0%, rgba(11,10,8,.62) 58%, rgba(11,10,8,.95) 100%);
   }
-  /* إطار رفيع حول "اللوحة" كلها — إحساس دعوة فاخرة */
-  body::after{
-    content:"";position:fixed;inset:14px;z-index:6;pointer-events:none;
-    border:1px solid rgba(227,184,76,.16);
+  .grain{
+    position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.045;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
+  /* إطار رفيع يدي إحساس دعوة فاخرة */
+  body::after{content:"";position:fixed;inset:14px;z-index:5;pointer-events:none;border:1px solid rgba(228,180,79,.15)}
 
-  /* ===== المحتوى ===== */
   .hero{
-    position:relative;z-index:2;
-    min-height:100dvh;
+    position:relative;z-index:3;
+    min-height:100vh;min-height:100dvh;
     display:flex;flex-direction:column;justify-content:center;align-items:center;
-    text-align:center;max-width:920px;margin-inline:auto;
-    padding:56px 22px 175px;
+    text-align:center;max-width:900px;margin-inline:auto;
+    padding:52px 22px 58px;
   }
-
-  .brand{display:flex;align-items:center;gap:10px}
-  .brand svg{flex:none}
-  .brand span{font-size:15px;font-weight:800;color:var(--gold-soft)}
 
   .badge{
-    display:inline-flex;align-items:center;gap:10px;margin-top:24px;
+    display:inline-flex;align-items:center;gap:10px;
     padding:8px 18px;border-radius:999px;
-    border:1px solid rgba(227,184,76,.28);background:rgba(227,184,76,.07);
+    border:1px solid rgba(228,180,79,.28);background:rgba(228,180,79,.07);
     font-size:13px;font-weight:700;color:var(--gold-soft);
   }
-  .dot{width:8px;height:8px;border-radius:50%;background:var(--up);position:relative;flex:none}
-  .dot::after{
-    content:"";position:absolute;inset:-4px;border-radius:50%;
-    border:1px solid var(--up);animation:ping 1.8s ease-out infinite;
-  }
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--live);position:relative;flex:none}
+  .dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--live);animation:ping 1.8s ease-out infinite}
   @keyframes ping{0%{transform:scale(.4);opacity:1}100%{transform:scale(1.7);opacity:0}}
 
   h1{
-    font-family:'Lalezar',cursive;font-weight:400;
-    font-size:clamp(2.7rem,8vw,5.6rem);
-    line-height:1.22;margin-top:20px;color:var(--ink);
+    font-family:'Changa',sans-serif;font-weight:800;
+    font-size:clamp(2.35rem,7.5vw,4.9rem);
+    line-height:1.42;margin-top:22px;
   }
-  h1 .gold{display:block;color:var(--gold)}
-
-  .sub{
-    margin-top:18px;max-width:600px;
-    font-size:16.5px;line-height:2;color:var(--muted);
+  h1 .gold{display:inline-block;position:relative;color:var(--gold);padding-bottom:8px}
+  /* خط مرسوم بإيدين تحت الكلمة الذهبية — بيرسم نفسه */
+  .squiggle{position:absolute;right:0;left:0;bottom:0;width:100%;height:12px;overflow:visible}
+  .squiggle path{
+    fill:none;stroke:var(--gold);stroke-width:3.2;stroke-linecap:round;
+    vector-effect:non-scaling-stroke;opacity:.85;
+    stroke-dasharray:250;stroke-dashoffset:250;
+    animation:draw .9s cubic-bezier(.6,0,.2,1) 1.05s forwards;
   }
+  @keyframes draw{to{stroke-dashoffset:0}}
 
-  .points{
-    list-style:none;display:flex;flex-wrap:wrap;justify-content:center;
-    column-gap:34px;row-gap:12px;margin-top:30px;
+  .sub{margin-top:20px;max-width:590px;font-size:16.5px;line-height:2.05;color:var(--muted)}
+  .sub b{color:var(--ink);font-weight:800}
+
+  /* ====== المتطلبات ====== */
+  .needs{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin-top:28px}
+  .needs .cap{font-size:13.5px;font-weight:700;color:var(--muted)}
+  .chip{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:8px 15px;border-radius:999px;
+    border:1px solid rgba(228,180,79,.22);background:rgba(228,180,79,.05);
+    font-size:13.5px;font-weight:700;color:#DDD5C2;
   }
-  .points li{display:flex;align-items:center;gap:9px;font-size:14.5px;font-weight:700;color:#D9D2C0}
-  .points svg{width:19px;height:19px;color:var(--gold);flex:none}
+  .chip svg{width:16px;height:16px;color:var(--gold);flex:none}
 
-  .proof{display:flex;align-items:center;gap:14px;margin-top:36px;direction:ltr}
-  .proof .plus{font-family:'Lalezar',cursive;font-size:1.7rem;color:var(--gold);line-height:1}
-  .proof strong{font-family:'Lalezar',cursive;font-weight:400;font-size:2.4rem;color:var(--gold);line-height:1}
-  .proof .lbl{direction:rtl;text-align:right;font-size:13.5px;color:var(--muted);line-height:1.7}
+  /* ====== الخطوات ====== */
+  .steps{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 14px;margin-top:26px}
+  .step{display:flex;align-items:center;gap:9px}
+  .step .n{
+    width:30px;height:30px;border-radius:50%;flex:none;
+    border:1px solid rgba(228,180,79,.45);
+    display:grid;place-items:center;
+    font-family:'Changa',sans-serif;font-weight:700;font-size:15px;color:var(--gold);
+  }
+  .step .t{font-size:14px;font-weight:700;color:#D9D2C0}
+  .sep{width:14px;height:14px;color:rgba(167,158,140,.6);flex:none}
 
-  /* ===== زر التلجرام — بطل الصفحة ===== */
+  /* ====== الدليل الاجتماعي ====== */
+  .proof{display:flex;align-items:center;gap:14px;margin-top:34px;direction:ltr}
+  .proof .plus{font-family:'Changa',sans-serif;font-weight:700;font-size:1.6rem;color:var(--gold);line-height:1}
+  .proof strong{font-family:'Changa',sans-serif;font-weight:700;font-size:2.5rem;color:var(--gold);line-height:1;letter-spacing:.5px}
+  .proof .lbl{direction:rtl;text-align:right;font-size:13.5px;color:var(--muted);line-height:1.8}
+
+  /* ====== الزر — بطل الصفحة ====== */
   .cta{
     position:relative;overflow:hidden;
-    display:inline-flex;align-items:center;justify-content:center;gap:13px;
-    margin-top:38px;padding:18px 46px;border-radius:999px;
-    background:var(--gold);color:#171207;text-decoration:none;
+    display:inline-flex;align-items:center;justify-content:center;gap:12px;
+    margin-top:34px;padding:18px 44px;border-radius:999px;
+    background:var(--gold);color:#191307;text-decoration:none;
     font-weight:800;font-size:18px;
-    box-shadow:0 16px 36px -14px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.35);
-    transition:transform .25s cubic-bezier(.2,.7,.3,1.4), background .2s ease, box-shadow .2s ease;
+    box-shadow:0 16px 38px -14px rgba(0,0,0,.75), inset 0 1px 0 rgba(255,255,255,.35);
+    transition:transform .25s cubic-bezier(.2,.7,.3,1.4), background .2s, box-shadow .2s;
     will-change:transform;
   }
-  .cta:hover{background:var(--gold-soft);box-shadow:0 22px 46px -14px rgba(0,0,0,.75), inset 0 1px 0 rgba(255,255,255,.45)}
+  .cta:hover{background:var(--gold-soft)}
   .cta svg{flex:none}
-  .cta .arrow{transition:transform .2s ease}
+  .cta .arrow{display:grid;place-items:center;transition:transform .2s}
   .cta:hover .arrow{transform:translateX(-4px)}
-  .cta::after{ /* لمعة بتعدّي على الزر — بتلفت النظر للـ CTA */
+  .cta::after{ /* لمعة بتعدّي على الزر — بتسحب العين ليه */
     content:"";position:absolute;top:0;bottom:0;left:-60%;width:45%;
-    background:linear-gradient(105deg, transparent, rgba(255,255,255,.55), transparent);
+    background:linear-gradient(105deg, transparent, rgba(255,255,255,.5), transparent);
     transform:skewX(-18deg);
     animation:shine 4.2s ease-in-out infinite;
   }
   @keyframes shine{0%,55%{left:-60%}85%,100%{left:135%}}
+  /* بعد ما حركة الدخول تخلص، بنشيل الأنيميشن عشان التحويل المغناطيسي يشتغل */
+  .cta.done{animation:none;opacity:1;transform:none}
 
-  .cta-hint{margin-top:16px;font-size:12.5px;color:var(--muted)}
-  .cta-hint i{font-style:normal;color:var(--gold);margin:0 6px}
+  .micro{margin-top:15px;font-size:12.5px;color:var(--muted)}
+  .micro i{font-style:normal;color:var(--gold);margin:0 7px}
 
-  /* ===== شريط السوق السفلي ===== */
-  .bottom{position:fixed;left:0;right:0;bottom:0;z-index:3}
-  .disclaimer{
-    text-align:center;font-size:11px;color:rgba(166,159,142,.8);
-    padding:9px 16px 7px;background:rgba(11,11,12,.75);
+  .legal{
+    margin-top:40px;padding-top:16px;
+    border-top:1px solid rgba(245,240,228,.07);
+    font-size:11px;color:rgba(167,158,140,.75);max-width:520px;
   }
-  .ticker{
-    direction:ltr;overflow:hidden;
-    border-top:1px solid rgba(227,184,76,.15);
-    background:rgba(11,11,12,.88);backdrop-filter:blur(8px);
-  }
-  .ticker-track{display:flex;width:max-content;animation:slide 44s linear infinite}
-  .ticker:hover .ticker-track{animation-play-state:paused}
-  @keyframes slide{to{transform:translateX(-50%)}}
-  .tk{display:flex;align-items:center;gap:10px;padding:13px 26px;white-space:nowrap;font-size:13.5px}
-  .tk + .tk{border-left:1px solid rgba(244,239,227,.06)}
-  .tk-name{color:var(--muted);font-weight:700;letter-spacing:.4px}
-  .tk-price{color:var(--ink)}
-  .tk-chg{font-weight:700;min-width:58px}
-  .tk-chg.up{color:var(--up)}
-  .tk-chg.down{color:var(--down)}
 
-  /* ===== حركة الدخول ===== */
-  .reveal{opacity:0;transform:translateY(26px);animation:rise .9s cubic-bezier(.16,.84,.3,1) forwards}
-  .d1{animation-delay:.1s}.d2{animation-delay:.22s}.d3{animation-delay:.36s}
-  .d4{animation-delay:.5s}.d5{animation-delay:.64s}.d6{animation-delay:.78s}.d7{animation-delay:.95s}
+  /* ====== حركة الدخول ====== */
+  .reveal{opacity:0;transform:translateY(24px);animation:rise .85s cubic-bezier(.16,.84,.3,1) forwards}
+  .d1{animation-delay:.12s}.d2{animation-delay:.26s}.d3{animation-delay:.4s}
+  .d4{animation-delay:.53s}.d5{animation-delay:.66s}.d6{animation-delay:.8s}.d7{animation-delay:.95s}
   @keyframes rise{to{opacity:1;transform:none}}
 
   @media (max-width:600px){
     body::after{inset:9px}
-    .hero{padding:42px 18px 155px}
-    .sub{font-size:15px;line-height:1.95}
-    .points{flex-direction:column;align-items:center;row-gap:11px;margin-top:24px}
-    .proof{gap:10px;margin-top:30px}
-    .proof strong{font-size:2rem}.proof .plus{font-size:1.4rem}
+    .hero{padding:40px 18px 46px}
+    .sub{font-size:15px;line-height:2}
+    .sep{display:none}
+    .proof strong{font-size:2.1rem}.proof .plus{font-size:1.35rem}
     .cta{width:min(100%,340px);font-size:16.5px;padding:17px 26px}
+    .legal{margin-top:32px}
   }
   @media (prefers-reduced-motion:reduce){
     .reveal{animation-duration:.01s}
     .cta::after,.dot::after{display:none}
-    .ticker-track{animation-duration:180s}
+    .squiggle path{animation:none;stroke-dashoffset:0}
   }
 </style>
 </head>
 <body>
 
-<canvas id="market"></canvas>
+<canvas id="fx"></canvas>
 <div class="scrim"></div>
+<div class="grain"></div>
 
 <main class="hero">
 
-  <div class="brand reveal">
-    <svg width="27" height="27" viewBox="0 0 26 26" fill="none">
-      <rect x="1" y="1" width="24" height="24" rx="7" stroke="#E3B84C" stroke-width="1.6"/>
-      <rect x="6.5" y="12" width="3" height="7" rx="1" fill="#E3B84C" opacity=".45"/>
-      <rect x="11.5" y="9"  width="3" height="10" rx="1" fill="#E3B84C" opacity=".7"/>
-      <rect x="16.5" y="6"  width="3" height="13" rx="1" fill="#E3B84C"/>
-    </svg>
-    <span>الإشارات الذهبية</span>
-  </div>
-
-  <div class="badge reveal d1">
+  <div class="badge reveal">
     <span class="dot"></span>
-    بث مباشر · تغطية الجلسة الأمريكية
+    ليك لو بتدوّر على شغل أو دخل إضافي
   </div>
 
-  <h1 class="reveal d2">السوق مافيهوش حظ..<span class="gold">فيه تحليل.</span></h1>
+  <h1 class="reveal d1">
+    موبايلك ممكن يبقى<br/>
+    <span class="gold">مصدر دخلك
+      <svg class="squiggle" viewBox="0 0 220 14" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M4 9 C 40 3, 80 13, 120 7 S 200 4, 216 8"/>
+      </svg>
+    </span>
+  </h1>
 
-  <p class="sub reveal d3">
-    إشارات دخول وخروج واضحة، تحليل يومي للذهب والعملات والأسهم العالمية،
-    وخطة إدارة مخاطر محترفة — كل ده مجانًا على قناة التلجرام.
+  <p class="sub reveal d2">
+    بدون شهادات، بدون خبرة سابقة، وبدون ما تخرج من بيتك.
+    كل اللي محتاجه موبايل ونت وساعتين فاضيين في اليوم —
+    والتفاصيل <b>هتعرفها جوه القناة</b>.
   </p>
 
-  <ul class="points reveal d4">
-    <li>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="12" cy="12" r=".9" fill="currentColor" stroke="none"/></svg>
-      إشارات بدقة عالية مع نقاط دخول وخروج محددة
-    </li>
-    <li>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.5l5.2-5.2 3.6 3 6.4-7.3"/><path d="M14.5 8h4v4"/></svg>
-      تغطية الذهب والعملات والأسهم العالمية
-    </li>
-    <li>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.2c0 4.6-3.2 7.8-7.5 9.3-4.3-1.5-7.5-4.7-7.5-9.3V6l7.5-3z"/><path d="M9 11.8l2.2 2.2 4-4.2"/></svg>
-      مجتمع استثماري نشط ومتابعة مستمرة
-    </li>
-  </ul>
+  <div class="needs reveal d3">
+    <span class="cap">كل اللي محتاجه:</span>
+    <span class="chip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg>
+      موبايل
+    </span>
+    <span class="chip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M2.5 9.5a14 14 0 0 1 19 0"/><path d="M5.5 13a9.5 9.5 0 0 1 13 0"/><path d="M8.6 16.4a5 5 0 0 1 6.8 0"/><circle cx="12" cy="19.3" r="1.2" fill="currentColor" stroke="none"/></svg>
+      نت
+    </span>
+    <span class="chip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>
+      ساعتين يوميًا
+    </span>
+  </div>
+
+  <div class="steps reveal d4">
+    <span class="step"><span class="n">١</span><span class="t">دوس الزرار</span></span>
+    <svg class="sep" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5L8 12l6.5 6.5"/></svg>
+    <span class="step"><span class="n">٢</span><span class="t">شوف بنفسك</span></span>
+    <svg class="sep" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5L8 12l6.5 6.5"/></svg>
+    <span class="step"><span class="n">٣</span><span class="t">قرارك عليك</span></span>
+  </div>
 
   <div class="proof reveal d5">
     <span class="plus">+</span><strong id="memberCount">0</strong>
-    <span class="lbl">مستثمر بيستقبلوا<br/>الإشارة أول بأول</span>
+    <span class="lbl">واحد جوه القناة دلوقتي<br/>بيتابعوا وبيجرّبوا كل يوم</span>
   </div>
 
   <a class="cta reveal d6" id="cta" href="https://t.me/+KfJQ3-YiIMljY2Q0" target="_blank" rel="noopener">
     <svg width="23" height="23" viewBox="0 0 24 24" fill="currentColor"><path d="M22 4.3L18.9 19c-.2 1-.9 1.2-1.8.8l-4.9-3.6-2.4 2.3c-.26.26-.48.48-.98.48l.35-4.9L18.4 6.9c.4-.35-.09-.55-.62-.2L6.7 13.1l-4.8-1.5c-1.04-.33-1.06-1.04.22-1.54L20.6 3.3c.87-.32 1.62.2 1.4 1z"/></svg>
-    <span>ادخل القناة على تلجرام</span>
+    <span>ادخل القناة واعرف بنفسك</span>
     <span class="arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5L8 12l6.5 6.5"/></svg></span>
   </a>
 
-  <div class="cta-hint reveal d7">مجانًا<i>·</i>بدون تسجيل<i>·</i>انضمام فوري</div>
+  <div class="micro reveal d7">مجانًا للأبد<i>·</i>بدون تسجيل<i>·</i>مش عاجبك؟ اطلع في ثانية</div>
+
+  <p class="legal reveal d7">+١٨ فقط · الصفحة دي مش وعد بأرباح مضمونة · النتائج بتختلف من شخص لشخص</p>
 
 </main>
 
-<div class="bottom">
-  <p class="disclaimer">التداول ينطوي على درجة عالية من المخاطرة — استثمر بمسؤولية.</p>
-  <div class="ticker"><div class="ticker-track" id="tickerTrack"></div></div>
-</div>
-
 <script>
 (() => {
-  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isCoarse = matchMedia('(pointer: coarse)').matches;
-  const canvas = document.getElementById('market');
-  const ctx = canvas.getContext('2d');
-  const GOLD = '227,184,76';
-
-  /* ================== محرك السوق (الخلفية) ================== */
-  const SPEED = 46;        // سرعة انسياب الشارت px/s
-  const LINE_STEP = 7;     // المسافة بين نقاط الخط
-  const CANDLE_W = 20;     // عرض جسم الشمعة
-  const CANDLE_GAP = 42;   // المسافة بين الشموع
-  const pointPeriod  = LINE_STEP  / SPEED;
-  const candlePeriod = CANDLE_GAP / SPEED;
-
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cv  = document.getElementById('fx');
+  const ctx = cv.getContext('2d');
   let W = 0, H = 0;
-  let price = 100, viewLo = 92, viewHi = 108;
-  let line = [], candles = [];
-  let tPoint = 0, tCandle = 0;
 
-  function seed(){
-    line = []; candles = [];
-    let v = 100;
-    let cur = { x: -CANDLE_GAP, o: v, h: v, l: v, c: v };
-    for (let x = 0; x <= W + LINE_STEP; x += LINE_STEP){
-      v += (Math.random() - .485) * .62 + (100 - v) * .012;
-      line.push({ x, v });
-      cur.c = v; cur.h = Math.max(cur.h, v); cur.l = Math.min(cur.l, v);
-      if (x - cur.x >= CANDLE_GAP){
-        candles.push(cur);
-        cur = { x: cur.x + CANDLE_GAP, o: v, h: v, l: v, c: v };
-      }
-    }
-    candles.push(cur);
-    price = v; tPoint = 0; tCandle = 0;
-    let lo = Infinity, hi = -Infinity;
-    for (const p of line){ lo = Math.min(lo, p.v); hi = Math.max(hi, p.v); }
-    const pad = (hi - lo) * .2 || 2;
-    viewLo = lo - pad; viewHi = hi + pad;
+  /* ============ سبرايت الضوء — بيتعمل مرة واحدة بدل الظلال المكلفة ============ */
+  function makeSprite(core, mid){
+    const s = document.createElement('canvas');
+    s.width = s.height = 128;
+    const c = s.getContext('2d');
+    const g = c.createRadialGradient(64,64,0,64,64,64);
+    g.addColorStop(0, core);
+    g.addColorStop(.28, mid);
+    g.addColorStop(1, 'rgba(228,180,79,0)');
+    c.fillStyle = g;
+    c.fillRect(0,0,128,128);
+    return s;
+  }
+  const SPRITE_SPARK = makeSprite('rgba(255,243,208,1)', 'rgba(228,180,79,.5)');
+  const SPRITE_GLOW  = makeSprite('rgba(228,180,79,.85)', 'rgba(228,180,79,.22)');
+
+  /* ============ طبقات المشهد ============ */
+  let parts = [], bokeh = [], streaks = [], sparks = [];
+  const rnd = (a,b) => a + Math.random()*(b-a);
+
+  function newPart(fromBottom){
+    const z = rnd(.25, 1); // العمق: ب يحدد الحجم والسرعة والشفافية
+    return {
+      bx: Math.random()*W,
+      y: fromBottom ? H + rnd(10,60) : Math.random()*H,
+      z,
+      r: 1 + z*2.6,
+      vy: 8 + z*26,                 // بيتحرك لفوق — إحساس النمو
+      sway: rnd(6,16),              // تمايل أفقي ناعم
+      fr: rnd(.25,.75),
+      ph: rnd(0, Math.PI*2),
+      a: rnd(.3,.75),
+      ox: 0, oy: 0                  // إزاحة التنافر مع المؤشر
+    };
+  }
+  function newBokeh(){
+    return { x: Math.random()*W, y: Math.random()*H, r: rnd(40,110), vy: rnd(3,8), a: rnd(.025,.06), ph: rnd(0, Math.PI*2) };
+  }
+
+  function init(){
+    const area = W*H;
+    const n  = Math.max(50,  Math.min(140, Math.round(area/11000)));
+    const bn = Math.max(4,   Math.min(14,  Math.round(area/95000)));
+    parts  = Array.from({length:n},  () => newPart(false));
+    bokeh  = Array.from({length:bn}, newBokeh);
+    streaks = []; sparks = [];
   }
 
   function resize(){
     const DPR = Math.min(devicePixelRatio || 1, 2);
     W = innerWidth; H = innerHeight;
-    canvas.width = W * DPR; canvas.height = H * DPR;
-    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    seed();
+    cv.width = W*DPR; cv.height = H*DPR;
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    init();
   }
+
+  /* ============ المؤشر (ماوس أو لمس) = مصدر نور ============ */
+  const cur = { x:-999, y:-999, tx:-999, ty:-999, t:-1e9 };
+  addEventListener('pointermove', e => {
+    cur.tx = e.clientX; cur.ty = e.clientY; cur.t = performance.now();
+  }, {passive:true});
+
+  /* ============ شرارات الزر ============ */
+  const cta = document.getElementById('cta');
+  let ctaHover = false;
+  cta.addEventListener('pointerenter', () => ctaHover = true);
+  cta.addEventListener('pointerleave', () => ctaHover = false);
+  cta.addEventListener('click', e => { // انفجار شرارات لحظة الضغط
+    for (let i = 0; i < 26; i++){
+      const ang = Math.random()*Math.PI*2, sp = rnd(60,220);
+      sparks.push({ x:e.clientX, y:e.clientY, vx:Math.cos(ang)*sp, vy:Math.sin(ang)*sp - 40, life:rnd(.5,.9), t:0, r:rnd(1,2.4) });
+    }
+  });
+  // لما أنيميشن الدخول يخلص بنشيله عشان التأثير المغناطيسي ياخد contrôle الترانسفورم
+  cta.addEventListener('animationend', e => { if (e.animationName === 'rise') cta.classList.add('done'); });
+
+  let streakTimer = rnd(1.5, 3.5);
 
   function step(dt){
-    // مسيرة عشوائية بميل صاعد خفيف وارتداد للمتوسط
-    price += (Math.random() - .487) * .6 + (100 - price) * .006;
+    // الضوء بيتبع المؤشر بنعومة
+    const k = 1 - Math.exp(-8*dt);
+    cur.x += (cur.tx - cur.x)*k;
+    cur.y += (cur.ty - cur.y)*k;
+    const curOn = performance.now() - cur.t < 1600;
 
-    const dx = SPEED * dt;
-    for (const p of line) p.x -= dx;
-    for (const c of candles) c.x -= dx;
-    while (line.length && line[0].x < -LINE_STEP * 2) line.shift();
-    while (candles.length && candles[0].x < -CANDLE_GAP * 2) candles.shift();
-
-    tPoint += dt;
-    while (tPoint >= pointPeriod){
-      tPoint -= pointPeriod;
-      const lx = line.length ? line[line.length - 1].x : W;
-      line.push({ x: lx + LINE_STEP, v: price });
-    }
-
-    let active = candles[candles.length - 1];
-    if (!active){ active = { x: W, o: price, h: price, l: price, c: price }; candles.push(active); }
-    active.c = price;
-    active.h = Math.max(active.h, price);
-    active.l = Math.min(active.l, price);
-    tCandle += dt;
-    if (tCandle >= candlePeriod){
-      tCandle = 0;
-      candles.push({ x: active.x + CANDLE_GAP, o: price, h: price, l: price, c: price });
-    }
-
-    // نطاق العرض يتكيّف بنعومة
-    let lo = Infinity, hi = -Infinity;
-    for (const c of candles){ if (c.l < lo) lo = c.l; if (c.h > hi) hi = c.h; }
-    const pad = (hi - lo) * .22 || 1;
-    lo -= pad; hi += pad;
-    const k = Math.min(1, dt * 1.8);
-    viewLo += (lo - viewLo) * k;
-    viewHi += (hi - viewHi) * k;
-  }
-
-  const fmtPrice = v => (2610 + (v - 100) * 1.9)
-    .toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-  function niceStep(raw){
-    const pow = Math.pow(10, Math.floor(Math.log10(raw)));
-    const n = raw / pow;
-    return (n < 1.5 ? 1 : n < 3.5 ? 2 : n < 7.5 ? 5 : 10) * pow;
-  }
-  function rr(x, y, w, h, r){
-    ctx.beginPath();
-    ctx.moveTo(x + r, y);
-    ctx.arcTo(x + w, y, x + w, y + h, r);
-    ctx.arcTo(x + w, y + h, x, y + h, r);
-    ctx.arcTo(x, y + h, x, y, r);
-    ctx.arcTo(x, y, x + w, y, r);
-    ctx.closePath();
-  }
-
-  /* تقاطع خط التصويب مع الخط الذهبي */
-  function lineValueAt(x){
-    if (line.length < 2 || x < line[0].x || x > line[line.length - 1].x) return null;
-    for (let i = 1; i < line.length; i++){
-      if (line[i].x >= x){
-        const a = line[i - 1], b = line[i];
-        const t = (x - a.x) / ((b.x - a.x) || 1);
-        return a.v + (b.v - a.v) * t;
+    for (const p of parts){
+      p.y -= p.vy*dt;
+      if (p.y < -30){ Object.assign(p, newPart(true)); continue; }
+      if (curOn){ // تنافر لطيف حوالين المؤشر
+        const dx = p.bx + p.ox - cur.x, dy = p.y + p.oy - cur.y;
+        const d = Math.hypot(dx, dy);
+        if (d < 150 && d > .5){
+          const f = (1 - d/150) * 110 * dt;
+          p.ox += dx/d*f; p.oy += dy/d*f;
+        }
       }
+      p.ox *= Math.exp(-2.2*dt);
+      p.oy *= Math.exp(-2.2*dt);
     }
-    return null;
+    for (const b of bokeh){
+      b.y -= b.vy*dt;
+      if (b.y < -b.r){ b.y = H + b.r; b.x = Math.random()*W; }
+    }
+
+    // لمعة صاعدة سريعة من فترة للتانية
+    streakTimer -= dt;
+    if (streakTimer <= 0){
+      streakTimer = rnd(2.2, 5);
+      streaks.push({ x:rnd(W*.1, W*.9), y:H + 40, vy:rnd(280, 460), len:rnd(70,150), t:0, life:rnd(1.6, 2.4) });
+    }
+    for (let i = streaks.length-1; i >= 0; i--){
+      const s = streaks[i];
+      s.y -= s.vy*dt; s.t += dt;
+      if (s.y + s.len < -10 || s.t > s.life) streaks.splice(i,1);
+    }
+
+    // شرارات بتنطلق من حرف الزر وقت الهوفر
+    if (ctaHover && !reduce){
+      const r = cta.getBoundingClientRect();
+      if (Math.random() < .8) sparks.push({ x:r.left + Math.random()*r.width, y:r.top + Math.random()*6, vx:rnd(-18,18), vy:rnd(-95,-35), life:rnd(.4,.8), t:0, r:rnd(.8,1.8) });
+    }
+    for (let i = sparks.length-1; i >= 0; i--){
+      const s = sparks[i];
+      s.t += dt;
+      s.x += s.vx*dt; s.y += s.vy*dt; s.vy += 60*dt;
+      if (s.t >= s.life) sparks.splice(i,1);
+    }
+    return curOn;
   }
 
-  let mx = -1, my = -1, lastMove = -1e9;
-  addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; lastMove = performance.now(); });
+  function draw(t, curOn){
+    ctx.clearRect(0,0,W,H);
+    ctx.globalCompositeOperation = 'lighter';
 
-  function draw(now){
-    ctx.clearRect(0, 0, W, H);
-    const yTop = H * .16, yBot = H * .78;
-    const yOf = v => yBot - (v - viewLo) / ((viewHi - viewLo) || 1) * (yBot - yTop);
-    const vOf = y => viewLo + (yBot - y) / ((yBot - yTop) || 1) * (viewHi - viewLo);
-
-    /* الشبكة الأفقية + أسعار خافتة */
-    ctx.lineWidth = 1;
-    ctx.font = '10px Almarai, sans-serif';
-    ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
-    const stepV = niceStep((viewHi - viewLo) / 5);
-    for (let v = Math.ceil(viewLo / stepV) * stepV; v < viewHi; v += stepV){
-      const y = yOf(v);
-      ctx.strokeStyle = 'rgba(244,239,227,.05)';
-      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
-      ctx.fillStyle = 'rgba(244,239,227,.2)';
-      ctx.fillText(fmtPrice(v), 8, y - 5);
-    }
-    /* الشبكة الرأسية بتنزلق مع الزمن */
-    const off = (SPEED * now / 1000) % 120;
-    ctx.strokeStyle = 'rgba(244,239,227,.035)';
-    for (let x = W - off; x > 0; x -= 120){
-      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+    // بوكيه ناعم في العمق
+    for (const b of bokeh){
+      ctx.globalAlpha = b.a * (.75 + .25*Math.sin(t*.0004 + b.ph));
+      ctx.drawImage(SPRITE_GLOW, b.x-b.r, b.y-b.r, b.r*2, b.r*2);
     }
 
-    /* الشموع — طبقة خافتة في العمق */
-    for (const c of candles){
-      const up = c.c >= c.o;
-      const wx = c.x + CANDLE_W / 2;
-      ctx.strokeStyle = up ? `rgba(${GOLD},.2)` : 'rgba(166,159,142,.14)';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(wx, yOf(c.h)); ctx.lineTo(wx, yOf(c.l));
-      ctx.stroke();
-      const yo = yOf(c.o), yc = yOf(c.c);
-      const top = Math.min(yo, yc);
-      ctx.fillStyle = up ? `rgba(${GOLD},.15)` : 'rgba(166,159,142,.08)';
-      ctx.fillRect(c.x, top, CANDLE_W, Math.max(2, Math.abs(yo - yc)));
-    }
-
-    /* الخط السعري الرئيسي + تعبئة المنطقة تحته */
-    if (line.length > 1){
-      line[line.length - 1].v = price;
-      ctx.beginPath();
-      ctx.moveTo(line[0].x, yOf(line[0].v));
-      for (let i = 1; i < line.length; i++) ctx.lineTo(line[i].x, yOf(line[i].v));
-      ctx.strokeStyle = `rgba(${GOLD},.95)`;
-      ctx.lineWidth = 2.2; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
-      ctx.stroke();
-
-      const lastP = line[line.length - 1];
-      ctx.lineTo(lastP.x, H); ctx.lineTo(line[0].x, H); ctx.closePath();
-      const g = ctx.createLinearGradient(0, yTop, 0, H);
-      g.addColorStop(0, `rgba(${GOLD},.1)`);
-      g.addColorStop(1, `rgba(${GOLD},0)`);
-      ctx.fillStyle = g;
-      ctx.fill();
-
-      /* النقطة الحية بحلقة نابضة */
-      const ly = yOf(price);
-      const pt = (now % 1700) / 1700;
-      ctx.beginPath(); ctx.arc(lastP.x, ly, 4 + pt * 22, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(${GOLD},${(1 - pt) * .5})`;
-      ctx.lineWidth = 1.5; ctx.stroke();
-      ctx.beginPath(); ctx.arc(lastP.x, ly, 4.5, 0, Math.PI * 2);
-      ctx.fillStyle = `rgb(${GOLD})`; ctx.fill();
-    }
-
-    /* مؤشر السعر الحالي على الحافة — زي منصات التداول */
-    const py = yOf(price);
-    ctx.setLineDash([4, 4]);
-    ctx.strokeStyle = `rgba(${GOLD},.35)`; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(0, py); ctx.lineTo(W, py); ctx.stroke();
-    ctx.setLineDash([]);
-    ctx.font = '700 11px Almarai, sans-serif';
-    ctx.textAlign = 'right';
-    ctx.fillStyle = `rgba(${GOLD},.85)`;
-    ctx.fillText('XAU/USD', W - 8, Math.max(16, py - 17));
-    const label = fmtPrice(price);
-    const tw = ctx.measureText(label).width;
-    const bw = tw + 16, bx = W - bw - 6;
-    const by = Math.max(4, Math.min(H - 24, py - 10));
-    ctx.fillStyle = `rgb(${GOLD})`;
-    rr(bx, by, bw, 20, 4); ctx.fill();
-    ctx.fillStyle = '#171307';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(label, W - 14, by + 10.5);
-    ctx.textBaseline = 'alphabetic';
-
-    /* خط التصويب (Crosshair) — يتبع الماوس ويتلاشى بعد ثباته */
-    const idle = now - lastMove;
-    if (!isCoarse && mx >= 0 && idle < 2400){
-      const a = Math.max(0, Math.min(1, (2400 - idle) / 600));
-      ctx.setLineDash([5, 5]);
-      ctx.strokeStyle = `rgba(244,239,227,${a * .3})`;
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(mx + .5, 0); ctx.lineTo(mx + .5, H);
-      ctx.moveTo(0, my + .5); ctx.lineTo(W, my + .5);
-      ctx.stroke();
-      ctx.setLineDash([]);
-
-      /* نقطه التقاطع مع الخط الذهبي + سعارها */
-      const v = lineValueAt(mx);
-      if (v !== null){
-        const yy = yOf(v);
-        ctx.beginPath(); ctx.arc(mx, yy, 4, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${GOLD},${a})`; ctx.fill();
-        tag(mx - 62, yy - 34, fmtPrice(v), a);
+    // الجزيئات الذهبية الصاعدة
+    for (const p of parts){
+      const x = p.bx + Math.sin(t*.001*p.fr + p.ph)*p.sway + p.ox;
+      let a = p.a * (1 - .4*Math.sin(t*.002*p.fr*3 + p.ph));
+      if (curOn){
+        const d = Math.hypot(x - cur.x, p.y - cur.y);
+        if (d < 150) a += (1 - d/150)*.6; // الجزيئات بتلمع أكتر قريب من النور
       }
-      /* السعر المقابل للمستوى الرأسي عند الماوس */
-      tag(10, my + 8, fmtPrice(vOf(my)), a, true);
+      const s = p.r*6;
+      ctx.globalAlpha = Math.min(1, a);
+      ctx.drawImage(SPRITE_SPARK, x - s/2, p.y + p.oy - s/2, s, s);
     }
 
-    function tag(x, y, text, a, left){
-      ctx.font = '700 11px Almarai, sans-serif';
-      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      const w = ctx.measureText(text).width + 14;
-      const tx = left ? x : x + 54;
-      ctx.fillStyle = `rgba(20,19,15,${.92 * a})`;
-      rr(tx, y - 10, w, 20, 4); ctx.fill();
-      ctx.strokeStyle = `rgba(${GOLD},${.5 * a})`; ctx.lineWidth = 1; ctx.stroke();
-      ctx.fillStyle = `rgba(244,239,227,${a})`;
-      ctx.fillText(text, tx + w / 2, y + .5);
-      ctx.textBaseline = 'alphabetic';
+    // اللمعات الصاعدة
+    ctx.lineCap = 'round';
+    for (const s of streaks){
+      const fade = Math.max(0, Math.min(1, s.t*2, (s.life - s.t)*1.5, s.y/(H*.35)));
+      const g = ctx.createLinearGradient(s.x, s.y, s.x, s.y + s.len);
+      g.addColorStop(0, `rgba(241,210,138,${.5*fade})`);
+      g.addColorStop(1, 'rgba(241,210,138,0)');
+      ctx.globalAlpha = 1;
+      ctx.strokeStyle = g;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(s.x, s.y);
+      ctx.lineTo(s.x, s.y + s.len);
+      ctx.stroke();
     }
+
+    // شرارات الزر
+    for (const s of sparks){
+      const sz = s.r*8;
+      ctx.globalAlpha = (1 - s.t/s.life)*.9;
+      ctx.drawImage(SPRITE_SPARK, s.x - sz/2, s.y - sz/2, sz, sz);
+    }
+
+    // هالة الضوء حوالين المؤشر
+    if (curOn){
+      const idle = performance.now() - cur.t;
+      const a = .16 * Math.max(0, Math.min(1, (1600 - idle)/400));
+      const R = 210;
+      ctx.globalAlpha = a;
+      ctx.drawImage(SPRITE_GLOW, cur.x - R, cur.y - R, R*2, R*2);
+    }
+
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = 'source-over';
   }
 
-  let last = performance.now();
+  let last = performance.now(), raf = 0;
   function frame(now){
-    const dt = Math.min(.05, (now - last) / 1000);
+    const dt = Math.min(.05, (now - last)/1000);
     last = now;
-    step(dt);
-    draw(now);
-    requestAnimationFrame(frame);
+    const curOn = step(dt);
+    draw(now, curOn);
+    raf = requestAnimationFrame(frame);
   }
 
   resize();
   addEventListener('resize', resize);
-  if (reduceMotion){ step(0); draw(performance.now()); }
-  else requestAnimationFrame(frame);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) cancelAnimationFrame(raf);
+    else { last = performance.now(); raf = requestAnimationFrame(frame); }
+  });
 
-  /* ================== عداد الأعضاء ================== */
-  const counter = document.getElementById('memberCount');
-  const TARGET = 12847, DUR = 2200, t0 = performance.now();
-  if (reduceMotion) counter.textContent = TARGET.toLocaleString('en-US');
-  else (function tick(n){
-    const p = Math.min(1, (n - t0) / DUR);
-    const e = 1 - Math.pow(1 - p, 3);
-    counter.textContent = Math.round(TARGET * e).toLocaleString('en-US');
-    if (p < 1) requestAnimationFrame(tick);
-  })(t0);
+  if (reduce) draw(performance.now(), false); // إطار ثابت هادي
+  else raf = requestAnimationFrame(frame);
 
-  /* ================== شريط الأسعار الحي ================== */
-  const assets = [
-    { n: 'XAU/USD', p: 2612.40, d: 2, chg: 0.84 },
-    { n: 'BTC/USD', p: 97410,  d: 0, chg: 1.62 },
-    { n: 'ETH/USD', p: 3412.6, d: 1, chg: 2.31 },
-    { n: 'EUR/USD', p: 1.0842, d: 4, chg: -0.12 },
-    { n: 'GBP/JPY', p: 196.44, d: 2, chg: 0.37 },
-    { n: 'US30',    p: 44210,  d: 0, chg: 0.55 },
-    { n: 'S&P 500', p: 6042.8, d: 1, chg: 0.91 },
-    { n: 'USD/JPY', p: 151.32, d: 2, chg: -0.28 },
-  ];
-  const track = document.getElementById('tickerTrack');
-  const item = (a, i) => `
-    <div class="tk">
-      <span class="tk-name">${a.n}</span>
-      <span class="tk-price" data-p="${i}">—</span>
-      <span class="tk-chg" data-c="${i}">—</span>
-    </div>`;
-  track.innerHTML = assets.map(item).join('') + assets.map(item).join(''); // نسختان للّوب السلس
-
-  function refreshTicker(){
-    assets.forEach((a, i) => {
-      const drift = (Math.random() - .46) * .18;
-      a.chg = Math.max(-2.4, Math.min(2.6, a.chg + drift));
-      a.p *= 1 + drift / 90;
-      const up = a.chg >= 0;
-      const fmt = a.p.toLocaleString('en-US', { minimumFractionDigits: a.d, maximumFractionDigits: a.d });
-      document.querySelectorAll(`[data-p="${i}"]`).forEach(el => el.textContent = fmt);
-      document.querySelectorAll(`[data-c="${i}"]`).forEach(el => {
-        el.textContent = (up ? '+' : '') + a.chg.toFixed(2) + '%';
-        el.className = 'tk-chg ' + (up ? 'up' : 'down');
-      });
-    });
+  /* ============ عداد الأعضاء — عدّل الرقم لعدد أعضاء قناتك الحقيقي ============ */
+  const MEMBER_COUNT = 12480;
+  const el = document.getElementById('memberCount');
+  if (reduce) el.textContent = MEMBER_COUNT.toLocaleString('en-US');
+  else {
+    const t0 = performance.now(), DUR = 2200;
+    (function tick(n){
+      const p = Math.min(1, (n - t0)/DUR);
+      el.textContent = Math.round(MEMBER_COUNT * (1 - Math.pow(1-p,3))).toLocaleString('en-US');
+      if (p < 1) requestAnimationFrame(tick);
+    })(t0);
   }
-  refreshTicker();
-  if (!reduceMotion) setInterval(refreshTicker, 2800);
 
-  /* ================== الزر المغناطيسي ================== */
-  const cta = document.getElementById('cta');
-  if (!reduceMotion && !isCoarse){
+  /* ============ الزر المغناطيسي على الديسكتوب ============ */
+  if (!reduce && matchMedia('(pointer:fine)').matches){
     cta.addEventListener('mousemove', e => {
       const r = cta.getBoundingClientRect();
-      const dx = (e.clientX - (r.left + r.width / 2)) / r.width;
-      const dy = (e.clientY - (r.top + r.height / 2)) / r.height;
-      cta.style.transform = `translate(${dx * 10}px, ${dy * 8}px)`;
+      const dx = (e.clientX - (r.left + r.width/2)) / r.width;
+      const dy = (e.clientY - (r.top + r.height/2)) / r.height;
+      cta.style.transform = `translate(${dx*10}px, ${dy*8}px)`;
     });
     cta.addEventListener('mouseleave', () => { cta.style.transform = ''; });
   }

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="إشارات يومية وتحليل محترف للذهب والعملات والأسهم — انضم لقناة التلجرام مجانًا" />
+<title>الإشارات الذهبية | قرارات مبنية على تحليل</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Lalezar&display=swap" rel="stylesheet" />
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#0B0B0C;
+    --gold:#E3B84C;
+    --gold-soft:#F0CD7E;
+    --ink:#F4EFE3;
+    --muted:#A69F8E;
+    --up:#37C57F;
+    --down:#E05C5C;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Almarai',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  /* ===== خلفية الشارت + طبقة تظليل للقراءة ===== */
+  #market{position:fixed;inset:0;width:100%;height:100%;display:block}
+  .scrim{
+    position:fixed;inset:0;pointer-events:none;z-index:1;
+    background:radial-gradient(120% 95% at 50% 40%, rgba(11,11,12,.30) 0%, rgba(11,11,12,.66) 62%, rgba(11,11,12,.94) 100%);
+  }
+  /* إطار رفيع حول "اللوحة" كلها — إحساس دعوة فاخرة */
+  body::after{
+    content:"";position:fixed;inset:14px;z-index:6;pointer-events:none;
+    border:1px solid rgba(227,184,76,.16);
+  }
+
+  /* ===== المحتوى ===== */
+  .hero{
+    position:relative;z-index:2;
+    min-height:100dvh;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    text-align:center;max-width:920px;margin-inline:auto;
+    padding:56px 22px 175px;
+  }
+
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand svg{flex:none}
+  .brand span{font-size:15px;font-weight:800;color:var(--gold-soft)}
+
+  .badge{
+    display:inline-flex;align-items:center;gap:10px;margin-top:24px;
+    padding:8px 18px;border-radius:999px;
+    border:1px solid rgba(227,184,76,.28);background:rgba(227,184,76,.07);
+    font-size:13px;font-weight:700;color:var(--gold-soft);
+  }
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--up);position:relative;flex:none}
+  .dot::after{
+    content:"";position:absolute;inset:-4px;border-radius:50%;
+    border:1px solid var(--up);animation:ping 1.8s ease-out infinite;
+  }
+  @keyframes ping{0%{transform:scale(.4);opacity:1}100%{transform:scale(1.7);opacity:0}}
+
+  h1{
+    font-family:'Lalezar',cursive;font-weight:400;
+    font-size:clamp(2.7rem,8vw,5.6rem);
+    line-height:1.22;margin-top:20px;color:var(--ink);
+  }
+  h1 .gold{display:block;color:var(--gold)}
+
+  .sub{
+    margin-top:18px;max-width:600px;
+    font-size:16.5px;line-height:2;color:var(--muted);
+  }
+
+  .points{
+    list-style:none;display:flex;flex-wrap:wrap;justify-content:center;
+    column-gap:34px;row-gap:12px;margin-top:30px;
+  }
+  .points li{display:flex;align-items:center;gap:9px;font-size:14.5px;font-weight:700;color:#D9D2C0}
+  .points svg{width:19px;height:19px;color:var(--gold);flex:none}
+
+  .proof{display:flex;align-items:center;gap:14px;margin-top:36px;direction:ltr}
+  .proof .plus{font-family:'Lalezar',cursive;font-size:1.7rem;color:var(--gold);line-height:1}
+  .proof strong{font-family:'Lalezar',cursive;font-weight:400;font-size:2.4rem;color:var(--gold);line-height:1}
+  .proof .lbl{direction:rtl;text-align:right;font-size:13.5px;color:var(--muted);line-height:1.7}
+
+  /* ===== زر التلجرام — بطل الصفحة ===== */
+  .cta{
+    position:relative;overflow:hidden;
+    display:inline-flex;align-items:center;justify-content:center;gap:13px;
+    margin-top:38px;padding:18px 46px;border-radius:999px;
+    background:var(--gold);color:#171207;text-decoration:none;
+    font-weight:800;font-size:18px;
+    box-shadow:0 16px 36px -14px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.35);
+    transition:transform .25s cubic-bezier(.2,.7,.3,1.4), background .2s ease, box-shadow .2s ease;
+    will-change:transform;
+  }
+  .cta:hover{background:var(--gold-soft);box-shadow:0 22px 46px -14px rgba(0,0,0,.75), inset 0 1px 0 rgba(255,255,255,.45)}
+  .cta svg{flex:none}
+  .cta .arrow{transition:transform .2s ease}
+  .cta:hover .arrow{transform:translateX(-4px)}
+  .cta::after{ /* لمعة بتعدّي على الزر — بتلفت النظر للـ CTA */
+    content:"";position:absolute;top:0;bottom:0;left:-60%;width:45%;
+    background:linear-gradient(105deg, transparent, rgba(255,255,255,.55), transparent);
+    transform:skewX(-18deg);
+    animation:shine 4.2s ease-in-out infinite;
+  }
+  @keyframes shine{0%,55%{left:-60%}85%,100%{left:135%}}
+
+  .cta-hint{margin-top:16px;font-size:12.5px;color:var(--muted)}
+  .cta-hint i{font-style:normal;color:var(--gold);margin:0 6px}
+
+  /* ===== شريط السوق السفلي ===== */
+  .bottom{position:fixed;left:0;right:0;bottom:0;z-index:3}
+  .disclaimer{
+    text-align:center;font-size:11px;color:rgba(166,159,142,.8);
+    padding:9px 16px 7px;background:rgba(11,11,12,.75);
+  }
+  .ticker{
+    direction:ltr;overflow:hidden;
+    border-top:1px solid rgba(227,184,76,.15);
+    background:rgba(11,11,12,.88);backdrop-filter:blur(8px);
+  }
+  .ticker-track{display:flex;width:max-content;animation:slide 44s linear infinite}
+  .ticker:hover .ticker-track{animation-play-state:paused}
+  @keyframes slide{to{transform:translateX(-50%)}}
+  .tk{display:flex;align-items:center;gap:10px;padding:13px 26px;white-space:nowrap;font-size:13.5px}
+  .tk + .tk{border-left:1px solid rgba(244,239,227,.06)}
+  .tk-name{color:var(--muted);font-weight:700;letter-spacing:.4px}
+  .tk-price{color:var(--ink)}
+  .tk-chg{font-weight:700;min-width:58px}
+  .tk-chg.up{color:var(--up)}
+  .tk-chg.down{color:var(--down)}
+
+  /* ===== حركة الدخول ===== */
+  .reveal{opacity:0;transform:translateY(26px);animation:rise .9s cubic-bezier(.16,.84,.3,1) forwards}
+  .d1{animation-delay:.1s}.d2{animation-delay:.22s}.d3{animation-delay:.36s}
+  .d4{animation-delay:.5s}.d5{animation-delay:.64s}.d6{animation-delay:.78s}.d7{animation-delay:.95s}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  @media (max-width:600px){
+    body::after{inset:9px}
+    .hero{padding:42px 18px 155px}
+    .sub{font-size:15px;line-height:1.95}
+    .points{flex-direction:column;align-items:center;row-gap:11px;margin-top:24px}
+    .proof{gap:10px;margin-top:30px}
+    .proof strong{font-size:2rem}.proof .plus{font-size:1.4rem}
+    .cta{width:min(100%,340px);font-size:16.5px;padding:17px 26px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .reveal{animation-duration:.01s}
+    .cta::after,.dot::after{display:none}
+    .ticker-track{animation-duration:180s}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="market"></canvas>
+<div class="scrim"></div>
+
+<main class="hero">
+
+  <div class="brand reveal">
+    <svg width="27" height="27" viewBox="0 0 26 26" fill="none">
+      <rect x="1" y="1" width="24" height="24" rx="7" stroke="#E3B84C" stroke-width="1.6"/>
+      <rect x="6.5" y="12" width="3" height="7" rx="1" fill="#E3B84C" opacity=".45"/>
+      <rect x="11.5" y="9"  width="3" height="10" rx="1" fill="#E3B84C" opacity=".7"/>
+      <rect x="16.5" y="6"  width="3" height="13" rx="1" fill="#E3B84C"/>
+    </svg>
+    <span>الإشارات الذهبية</span>
+  </div>
+
+  <div class="badge reveal d1">
+    <span class="dot"></span>
+    بث مباشر · تغطية الجلسة الأمريكية
+  </div>
+
+  <h1 class="reveal d2">السوق مافيهوش حظ..<span class="gold">فيه تحليل.</span></h1>
+
+  <p class="sub reveal d3">
+    إشارات دخول وخروج واضحة، تحليل يومي للذهب والعملات والأسهم العالمية،
+    وخطة إدارة مخاطر محترفة — كل ده مجانًا على قناة التلجرام.
+  </p>
+
+  <ul class="points reveal d4">
+    <li>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="12" cy="12" r=".9" fill="currentColor" stroke="none"/></svg>
+      إشارات بدقة عالية مع نقاط دخول وخروج محددة
+    </li>
+    <li>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.5l5.2-5.2 3.6 3 6.4-7.3"/><path d="M14.5 8h4v4"/></svg>
+      تغطية الذهب والعملات والأسهم العالمية
+    </li>
+    <li>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.2c0 4.6-3.2 7.8-7.5 9.3-4.3-1.5-7.5-4.7-7.5-9.3V6l7.5-3z"/><path d="M9 11.8l2.2 2.2 4-4.2"/></svg>
+      مجتمع استثماري نشط ومتابعة مستمرة
+    </li>
+  </ul>
+
+  <div class="proof reveal d5">
+    <span class="plus">+</span><strong id="memberCount">0</strong>
+    <span class="lbl">مستثمر بيستقبلوا<br/>الإشارة أول بأول</span>
+  </div>
+
+  <a class="cta reveal d6" id="cta" href="https://t.me/+KfJQ3-YiIMljY2Q0" target="_blank" rel="noopener">
+    <svg width="23" height="23" viewBox="0 0 24 24" fill="currentColor"><path d="M22 4.3L18.9 19c-.2 1-.9 1.2-1.8.8l-4.9-3.6-2.4 2.3c-.26.26-.48.48-.98.48l.35-4.9L18.4 6.9c.4-.35-.09-.55-.62-.2L6.7 13.1l-4.8-1.5c-1.04-.33-1.06-1.04.22-1.54L20.6 3.3c.87-.32 1.62.2 1.4 1z"/></svg>
+    <span>ادخل القناة على تلجرام</span>
+    <span class="arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5L8 12l6.5 6.5"/></svg></span>
+  </a>
+
+  <div class="cta-hint reveal d7">مجانًا<i>·</i>بدون تسجيل<i>·</i>انضمام فوري</div>
+
+</main>
+
+<div class="bottom">
+  <p class="disclaimer">التداول ينطوي على درجة عالية من المخاطرة — استثمر بمسؤولية.</p>
+  <div class="ticker"><div class="ticker-track" id="tickerTrack"></div></div>
+</div>
+
+<script>
+(() => {
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isCoarse = matchMedia('(pointer: coarse)').matches;
+  const canvas = document.getElementById('market');
+  const ctx = canvas.getContext('2d');
+  const GOLD = '227,184,76';
+
+  /* ================== محرك السوق (الخلفية) ================== */
+  const SPEED = 46;        // سرعة انسياب الشارت px/s
+  const LINE_STEP = 7;     // المسافة بين نقاط الخط
+  const CANDLE_W = 20;     // عرض جسم الشمعة
+  const CANDLE_GAP = 42;   // المسافة بين الشموع
+  const pointPeriod  = LINE_STEP  / SPEED;
+  const candlePeriod = CANDLE_GAP / SPEED;
+
+  let W = 0, H = 0;
+  let price = 100, viewLo = 92, viewHi = 108;
+  let line = [], candles = [];
+  let tPoint = 0, tCandle = 0;
+
+  function seed(){
+    line = []; candles = [];
+    let v = 100;
+    let cur = { x: -CANDLE_GAP, o: v, h: v, l: v, c: v };
+    for (let x = 0; x <= W + LINE_STEP; x += LINE_STEP){
+      v += (Math.random() - .485) * .62 + (100 - v) * .012;
+      line.push({ x, v });
+      cur.c = v; cur.h = Math.max(cur.h, v); cur.l = Math.min(cur.l, v);
+      if (x - cur.x >= CANDLE_GAP){
+        candles.push(cur);
+        cur = { x: cur.x + CANDLE_GAP, o: v, h: v, l: v, c: v };
+      }
+    }
+    candles.push(cur);
+    price = v; tPoint = 0; tCandle = 0;
+    let lo = Infinity, hi = -Infinity;
+    for (const p of line){ lo = Math.min(lo, p.v); hi = Math.max(hi, p.v); }
+    const pad = (hi - lo) * .2 || 2;
+    viewLo = lo - pad; viewHi = hi + pad;
+  }
+
+  function resize(){
+    const DPR = Math.min(devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight;
+    canvas.width = W * DPR; canvas.height = H * DPR;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    seed();
+  }
+
+  function step(dt){
+    // مسيرة عشوائية بميل صاعد خفيف وارتداد للمتوسط
+    price += (Math.random() - .487) * .6 + (100 - price) * .006;
+
+    const dx = SPEED * dt;
+    for (const p of line) p.x -= dx;
+    for (const c of candles) c.x -= dx;
+    while (line.length && line[0].x < -LINE_STEP * 2) line.shift();
+    while (candles.length && candles[0].x < -CANDLE_GAP * 2) candles.shift();
+
+    tPoint += dt;
+    while (tPoint >= pointPeriod){
+      tPoint -= pointPeriod;
+      const lx = line.length ? line[line.length - 1].x : W;
+      line.push({ x: lx + LINE_STEP, v: price });
+    }
+
+    let active = candles[candles.length - 1];
+    if (!active){ active = { x: W, o: price, h: price, l: price, c: price }; candles.push(active); }
+    active.c = price;
+    active.h = Math.max(active.h, price);
+    active.l = Math.min(active.l, price);
+    tCandle += dt;
+    if (tCandle >= candlePeriod){
+      tCandle = 0;
+      candles.push({ x: active.x + CANDLE_GAP, o: price, h: price, l: price, c: price });
+    }
+
+    // نطاق العرض يتكيّف بنعومة
+    let lo = Infinity, hi = -Infinity;
+    for (const c of candles){ if (c.l < lo) lo = c.l; if (c.h > hi) hi = c.h; }
+    const pad = (hi - lo) * .22 || 1;
+    lo -= pad; hi += pad;
+    const k = Math.min(1, dt * 1.8);
+    viewLo += (lo - viewLo) * k;
+    viewHi += (hi - viewHi) * k;
+  }
+
+  const fmtPrice = v => (2610 + (v - 100) * 1.9)
+    .toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  function niceStep(raw){
+    const pow = Math.pow(10, Math.floor(Math.log10(raw)));
+    const n = raw / pow;
+    return (n < 1.5 ? 1 : n < 3.5 ? 2 : n < 7.5 ? 5 : 10) * pow;
+  }
+  function rr(x, y, w, h, r){
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  /* تقاطع خط التصويب مع الخط الذهبي */
+  function lineValueAt(x){
+    if (line.length < 2 || x < line[0].x || x > line[line.length - 1].x) return null;
+    for (let i = 1; i < line.length; i++){
+      if (line[i].x >= x){
+        const a = line[i - 1], b = line[i];
+        const t = (x - a.x) / ((b.x - a.x) || 1);
+        return a.v + (b.v - a.v) * t;
+      }
+    }
+    return null;
+  }
+
+  let mx = -1, my = -1, lastMove = -1e9;
+  addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; lastMove = performance.now(); });
+
+  function draw(now){
+    ctx.clearRect(0, 0, W, H);
+    const yTop = H * .16, yBot = H * .78;
+    const yOf = v => yBot - (v - viewLo) / ((viewHi - viewLo) || 1) * (yBot - yTop);
+    const vOf = y => viewLo + (yBot - y) / ((yBot - yTop) || 1) * (viewHi - viewLo);
+
+    /* الشبكة الأفقية + أسعار خافتة */
+    ctx.lineWidth = 1;
+    ctx.font = '10px Almarai, sans-serif';
+    ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
+    const stepV = niceStep((viewHi - viewLo) / 5);
+    for (let v = Math.ceil(viewLo / stepV) * stepV; v < viewHi; v += stepV){
+      const y = yOf(v);
+      ctx.strokeStyle = 'rgba(244,239,227,.05)';
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+      ctx.fillStyle = 'rgba(244,239,227,.2)';
+      ctx.fillText(fmtPrice(v), 8, y - 5);
+    }
+    /* الشبكة الرأسية بتنزلق مع الزمن */
+    const off = (SPEED * now / 1000) % 120;
+    ctx.strokeStyle = 'rgba(244,239,227,.035)';
+    for (let x = W - off; x > 0; x -= 120){
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+    }
+
+    /* الشموع — طبقة خافتة في العمق */
+    for (const c of candles){
+      const up = c.c >= c.o;
+      const wx = c.x + CANDLE_W / 2;
+      ctx.strokeStyle = up ? `rgba(${GOLD},.2)` : 'rgba(166,159,142,.14)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(wx, yOf(c.h)); ctx.lineTo(wx, yOf(c.l));
+      ctx.stroke();
+      const yo = yOf(c.o), yc = yOf(c.c);
+      const top = Math.min(yo, yc);
+      ctx.fillStyle = up ? `rgba(${GOLD},.15)` : 'rgba(166,159,142,.08)';
+      ctx.fillRect(c.x, top, CANDLE_W, Math.max(2, Math.abs(yo - yc)));
+    }
+
+    /* الخط السعري الرئيسي + تعبئة المنطقة تحته */
+    if (line.length > 1){
+      line[line.length - 1].v = price;
+      ctx.beginPath();
+      ctx.moveTo(line[0].x, yOf(line[0].v));
+      for (let i = 1; i < line.length; i++) ctx.lineTo(line[i].x, yOf(line[i].v));
+      ctx.strokeStyle = `rgba(${GOLD},.95)`;
+      ctx.lineWidth = 2.2; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+      ctx.stroke();
+
+      const lastP = line[line.length - 1];
+      ctx.lineTo(lastP.x, H); ctx.lineTo(line[0].x, H); ctx.closePath();
+      const g = ctx.createLinearGradient(0, yTop, 0, H);
+      g.addColorStop(0, `rgba(${GOLD},.1)`);
+      g.addColorStop(1, `rgba(${GOLD},0)`);
+      ctx.fillStyle = g;
+      ctx.fill();
+
+      /* النقطة الحية بحلقة نابضة */
+      const ly = yOf(price);
+      const pt = (now % 1700) / 1700;
+      ctx.beginPath(); ctx.arc(lastP.x, ly, 4 + pt * 22, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(${GOLD},${(1 - pt) * .5})`;
+      ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.beginPath(); ctx.arc(lastP.x, ly, 4.5, 0, Math.PI * 2);
+      ctx.fillStyle = `rgb(${GOLD})`; ctx.fill();
+    }
+
+    /* مؤشر السعر الحالي على الحافة — زي منصات التداول */
+    const py = yOf(price);
+    ctx.setLineDash([4, 4]);
+    ctx.strokeStyle = `rgba(${GOLD},.35)`; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(0, py); ctx.lineTo(W, py); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.font = '700 11px Almarai, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillStyle = `rgba(${GOLD},.85)`;
+    ctx.fillText('XAU/USD', W - 8, Math.max(16, py - 17));
+    const label = fmtPrice(price);
+    const tw = ctx.measureText(label).width;
+    const bw = tw + 16, bx = W - bw - 6;
+    const by = Math.max(4, Math.min(H - 24, py - 10));
+    ctx.fillStyle = `rgb(${GOLD})`;
+    rr(bx, by, bw, 20, 4); ctx.fill();
+    ctx.fillStyle = '#171307';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(label, W - 14, by + 10.5);
+    ctx.textBaseline = 'alphabetic';
+
+    /* خط التصويب (Crosshair) — يتبع الماوس ويتلاشى بعد ثباته */
+    const idle = now - lastMove;
+    if (!isCoarse && mx >= 0 && idle < 2400){
+      const a = Math.max(0, Math.min(1, (2400 - idle) / 600));
+      ctx.setLineDash([5, 5]);
+      ctx.strokeStyle = `rgba(244,239,227,${a * .3})`;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(mx + .5, 0); ctx.lineTo(mx + .5, H);
+      ctx.moveTo(0, my + .5); ctx.lineTo(W, my + .5);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      /* نقطه التقاطع مع الخط الذهبي + سعارها */
+      const v = lineValueAt(mx);
+      if (v !== null){
+        const yy = yOf(v);
+        ctx.beginPath(); ctx.arc(mx, yy, 4, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${GOLD},${a})`; ctx.fill();
+        tag(mx - 62, yy - 34, fmtPrice(v), a);
+      }
+      /* السعر المقابل للمستوى الرأسي عند الماوس */
+      tag(10, my + 8, fmtPrice(vOf(my)), a, true);
+    }
+
+    function tag(x, y, text, a, left){
+      ctx.font = '700 11px Almarai, sans-serif';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      const w = ctx.measureText(text).width + 14;
+      const tx = left ? x : x + 54;
+      ctx.fillStyle = `rgba(20,19,15,${.92 * a})`;
+      rr(tx, y - 10, w, 20, 4); ctx.fill();
+      ctx.strokeStyle = `rgba(${GOLD},${.5 * a})`; ctx.lineWidth = 1; ctx.stroke();
+      ctx.fillStyle = `rgba(244,239,227,${a})`;
+      ctx.fillText(text, tx + w / 2, y + .5);
+      ctx.textBaseline = 'alphabetic';
+    }
+  }
+
+  let last = performance.now();
+  function frame(now){
+    const dt = Math.min(.05, (now - last) / 1000);
+    last = now;
+    step(dt);
+    draw(now);
+    requestAnimationFrame(frame);
+  }
+
+  resize();
+  addEventListener('resize', resize);
+  if (reduceMotion){ step(0); draw(performance.now()); }
+  else requestAnimationFrame(frame);
+
+  /* ================== عداد الأعضاء ================== */
+  const counter = document.getElementById('memberCount');
+  const TARGET = 12847, DUR = 2200, t0 = performance.now();
+  if (reduceMotion) counter.textContent = TARGET.toLocaleString('en-US');
+  else (function tick(n){
+    const p = Math.min(1, (n - t0) / DUR);
+    const e = 1 - Math.pow(1 - p, 3);
+    counter.textContent = Math.round(TARGET * e).toLocaleString('en-US');
+    if (p < 1) requestAnimationFrame(tick);
+  })(t0);
+
+  /* ================== شريط الأسعار الحي ================== */
+  const assets = [
+    { n: 'XAU/USD', p: 2612.40, d: 2, chg: 0.84 },
+    { n: 'BTC/USD', p: 97410,  d: 0, chg: 1.62 },
+    { n: 'ETH/USD', p: 3412.6, d: 1, chg: 2.31 },
+    { n: 'EUR/USD', p: 1.0842, d: 4, chg: -0.12 },
+    { n: 'GBP/JPY', p: 196.44, d: 2, chg: 0.37 },
+    { n: 'US30',    p: 44210,  d: 0, chg: 0.55 },
+    { n: 'S&P 500', p: 6042.8, d: 1, chg: 0.91 },
+    { n: 'USD/JPY', p: 151.32, d: 2, chg: -0.28 },
+  ];
+  const track = document.getElementById('tickerTrack');
+  const item = (a, i) => `
+    <div class="tk">
+      <span class="tk-name">${a.n}</span>
+      <span class="tk-price" data-p="${i}">—</span>
+      <span class="tk-chg" data-c="${i}">—</span>
+    </div>`;
+  track.innerHTML = assets.map(item).join('') + assets.map(item).join(''); // نسختان للّوب السلس
+
+  function refreshTicker(){
+    assets.forEach((a, i) => {
+      const drift = (Math.random() - .46) * .18;
+      a.chg = Math.max(-2.4, Math.min(2.6, a.chg + drift));
+      a.p *= 1 + drift / 90;
+      const up = a.chg >= 0;
+      const fmt = a.p.toLocaleString('en-US', { minimumFractionDigits: a.d, maximumFractionDigits: a.d });
+      document.querySelectorAll(`[data-p="${i}"]`).forEach(el => el.textContent = fmt);
+      document.querySelectorAll(`[data-c="${i}"]`).forEach(el => {
+        el.textContent = (up ? '+' : '') + a.chg.toFixed(2) + '%';
+        el.className = 'tk-chg ' + (up ? 'up' : 'down');
+      });
+    });
+  }
+  refreshTicker();
+  if (!reduceMotion) setInterval(refreshTicker, 2800);
+
+  /* ================== الزر المغناطيسي ================== */
+  const cta = document.getElementById('cta');
+  if (!reduceMotion && !isCoarse){
+    cta.addEventListener('mousemove', e => {
+      const r = cta.getBoundingClientRect();
+      const dx = (e.clientX - (r.left + r.width / 2)) / r.width;
+      const dy = (e.clientY - (r.top + r.height / 2)) / r.height;
+      cta.style.transform = `translate(${dx * 10}px, ${dy * 8}px)`;
+    });
+    cta.addEventListener('mouseleave', () => { cta.style.transform = ''; });
+  }
+})();
+</script>
+</body>
+</html>
